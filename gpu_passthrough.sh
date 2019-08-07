@@ -1,6 +1,4 @@
-
-apt update
-apt upgrade
+#!/bin/bash
 
 apt install qemu virt-manager ovmf qemu-utils
 
