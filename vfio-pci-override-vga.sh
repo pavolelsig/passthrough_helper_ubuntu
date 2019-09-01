@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Source: http://vfio.blogspot.com/2015/05/
+
 for i in $(find /sys/devices/pci* -name boot_vga); do
 if [ $(cat $i) -eq 0 ]; then
 GPU=$(dirname $i)
