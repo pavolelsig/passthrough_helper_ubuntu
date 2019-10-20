@@ -1,24 +1,21 @@
 #!/bin/bash
 
-apt install qemu virt-manager ovmf qemu-utils
+sudo rm run.sh
 
+echo "#!/bin/bash" >> run.sh
+VERSION=$(cat /etc/issue | cut -c1-9 )
 
-nano /etc/default/grub
+if [ "$VERSION" = 'Ubuntu 19' ]
+then
+	echo "apt install qemu virt-manager ovmf qemu-utils libguestfs-tools" >> run.sh
+else
+	echo "apt install qemu virt-manager ovmf qemu-utils" >> run.sh
+fi
 
-update-grub
+$(cat tail.sh >> run.sh )
 
-echo "vfio" >> /etc/modules
-echo "vfio_iommu_type1" >> /etc/modules
-echo "vfio_pci" >> /etc/modules
-echo "kvm" >> /etc/modules
-echo "kvm_intel" >> /etc/modules
+sudo chmod +x run.sh
 
-cp vfio-pci-override-vga.sh /sbin/vfio-pci-override-vga.sh
+sudo ./run.sh
 
-chmod 755 /sbin/vfio-pci-override-vga.sh
-
-echo "install vfio-pci /sbin/vfio-pci-override-vga.sh" >> /etc/modprobe.d/local.conf
-
-echo 'install_items+="/sbin/vfio-pci-override-vga.sh /usr/bin/find /usr/bin/dirname"' >> /etc/initramfs-tools/modules
-
-update-initramfs -u
+sudo rm run.sh
