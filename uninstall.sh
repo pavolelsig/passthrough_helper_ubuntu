@@ -1,3 +1,5 @@
+#!/bin/bash
+
 sudo rm vfio-pci-override-vga.sh /sbin/vfio-pci-override-vga.sh
 
 sudo cp Backup/etc_modules /etc/modules
