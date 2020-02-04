@@ -1,3 +1,11 @@
+mkdir Backup
+chmod +x uninstall.sh
+
+
+cp /etc/modules Backup/etc_modules
+cp /etc/default/grub Backup/
+cp /etc/initramfs-tools/modules Backup/
+cp /etc/modprobe.d/local.conf Backup/
 
 nano /etc/default/grub
 
